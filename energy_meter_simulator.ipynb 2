@@ -1,0 +1,77 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "4-6YoRkGrDPG",
+        "outputId": "312734f2-5aec-4545-ef6e-79e8edb9be40"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter the number of records to generate: 10\n",
+            "Generating 10 records...\n",
+            "Data saved to energy_consumption_data.csv\n"
+          ]
+        }
+      ],
+      "source": [
+        "# energy_meter_simulator.py\n",
+        "\n",
+        "import random\n",
+        "import csv\n",
+        "import time\n",
+        "\n",
+        "def generate_energy_data(num_records):\n",
+        "    \"\"\"Generate random energy consumption data.\"\"\"\n",
+        "    data = []\n",
+        "    for _ in range(num_records):\n",
+        "        timestamp = time.strftime(\"%Y-%m-%d %H:%M:%S\", time.localtime())\n",
+        "        consumption = round(random.uniform(0, 100), 2)  # Random consumption between 0 and 100 kWh\n",
+        "        data.append((timestamp, consumption))\n",
+        "        time.sleep(1)  # Simulate time delay between readings (optional)\n",
+        "    return data\n",
+        "\n",
+        "def save_to_csv(data, filename):\n",
+        "    \"\"\"Save the generated data to a CSV file.\"\"\"\n",
+        "    with open(filename, mode='w', newline='') as file:\n",
+        "        writer = csv.writer(file)\n",
+        "        writer.writerow(['Timestamp', 'Energy Consumption (kWh)'])  # Header\n",
+        "        writer.writerows(data)\n",
+        "\n",
+        "def main():\n",
+        "    num_records = int(input(\"Enter the number of records to generate: \"))\n",
+        "    filename = 'energy_consumption_data.csv'\n",
+        "\n",
+        "    print(f\"Generating {num_records} records...\")\n",
+        "    energy_data = generate_energy_data(num_records)\n",
+        "\n",
+        "    save_to_csv(energy_data, filename)\n",
+        "    print(f\"Data saved to {filename}\")\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "    main()"
+      ]
+    }
+  ]
+}
